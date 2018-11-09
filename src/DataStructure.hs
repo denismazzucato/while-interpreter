@@ -18,7 +18,7 @@ import qualified Data.Map as Map
 
 -- State
 
-type Var = Char
+type Var = String
 type MapWrapper = Map.Map Var Integer
 
 data State = Valid MapWrapper | Undef
@@ -40,7 +40,7 @@ updateState x aExp (Valid s) = Valid (Map.insert x v s)
   where v = evalAExp aExp (Valid s)
 
 lookupState :: Var -> State -> Integer
-lookupState v (Valid s) = Map.findWithDefault 0 v s
+lookupState v (Valid s) = s Map.! v
 
 -- Expressions (Aritmetical and Boolean)
 
