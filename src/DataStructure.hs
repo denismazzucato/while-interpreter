@@ -80,8 +80,8 @@ evalBExp (BExp And b0 b1) s
   | ((evalBExp b0 s) == True) && ((evalBExp b1 s) == True) = True
   | ((evalBExp b0 s) == False) || ((evalBExp b1 s) == False) = False
 evalBExp (BExp Or b0 b1) s
-| ((evalBExp b0 s) == True) || ((evalBExp b1 s) == True) = True
-| ((evalBExp b0 s) == False) && ((evalBExp b1 s) == False) = False
+  | ((evalBExp b0 s) == True) || ((evalBExp b1 s) == True) = True
+  | ((evalBExp b0 s) == False) && ((evalBExp b1 s) == False) = False
 
 -- Operators
 
