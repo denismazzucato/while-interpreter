@@ -48,6 +48,7 @@ data AExp = -- Table 1.1
   Numeral Integer
   | Variable Var
   | AExp AOp AExp AExp
+  deriving (Show)
 
 evalAExp :: AExp -> State -> Integer -- Table 1.1
 evalAExp (Numeral n) _ = n
@@ -61,6 +62,7 @@ data BExp = -- Table 1.2
   | ABExp ABOp AExp AExp -- Boolean Operator for Aritmetical expressions
   | Not BExp
   | BExp BOp BExp BExp -- Boolean Operator for Boolean expressions
+  deriving (Show)
 
 evalBExp :: BExp -> State -> Bool -- Table 1.2
 evalBExp (Boolean b) _ = b
@@ -86,7 +88,10 @@ evalBExp (BExp Or b0 b1) s
 -- Operators
 
 data AOp = Sum | Sub | Mul -- Table 1.1
+  deriving (Show)
 
 data BOp = And | Or -- Table 1.2
+  deriving (Show)
 
 data ABOp = Equal | Greater | Smaller -- Table 1.2
+  deriving (Show)

@@ -13,6 +13,7 @@ data Stm =
   | Composition Stm Stm
   | If BExp Stm Stm
   | While BExp Stm
+  deriving (Show)
 
 -- semantic function
 semFunction :: Stm -> State -> State -- Table 4.1
@@ -21,7 +22,7 @@ semFunction (Skip) = id
 semFunction (Composition s0 s1) = semFunction s1 . semFunction s0
 semFunction (If b s0 s1) = cond (evalBExp b) (semFunction s0) (semFunction s1)
 semFunction (While b s) = fix f
-  where f = \g -> cond ( evalBExp b) (g . semFunction(s)) id
+  where f = \g -> cond (evalBExp b) (g . semFunction(s)) id
 
 cond ::
   (State -> Bool) -> -- b
