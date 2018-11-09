@@ -25,7 +25,7 @@ data State = Valid MapWrapper | Undef
   deriving (Show, Eq)
 
 bottom :: State -> State
-bottom = \s -> Undef
+bottom = \s -> Undef -- Lemma 4.13
 
 emptyState :: State
 emptyState = Valid Map.empty
@@ -35,7 +35,7 @@ emptyState = Valid Map.empty
 
 -- Undef for function that are undefined in s but have to return a valid State
 
-updateState :: Var -> AExp -> State -> State
+updateState :: Var -> AExp -> State -> State -- substituions in State
 updateState x aExp (Valid s) = Valid (Map.insert x v s)
   where v = evalAExp aExp (Valid s)
 
@@ -44,25 +44,25 @@ lookupState v (Valid s) = s Map.! v
 
 -- Expressions (Aritmetical and Boolean)
 
-data AExp =
+data AExp = -- Table 1.1
   Numeral Integer
   | Variable Var
   | AExp AOp AExp AExp
 
-evalAExp :: AExp -> State -> Integer
+evalAExp :: AExp -> State -> Integer -- Table 1.1
 evalAExp (Numeral n) _ = n
 evalAExp (Variable v) s = lookupState v s
 evalAExp (AExp Sum a0 a1) s = (evalAExp a0 s) + (evalAExp a1 s)
 evalAExp (AExp Sub a0 a1) s = (evalAExp a0 s) - (evalAExp a1 s)
 evalAExp (AExp Mul a0 a1) s = (evalAExp a0 s) * (evalAExp a1 s)
 
-data BExp =
+data BExp = -- Table 1.2
   Boolean Bool
   | ABExp ABOp AExp AExp -- Boolean Operator for Aritmetical expressions
   | Not BExp
   | BExp BOp BExp BExp -- Boolean Operator for Boolean expressions
 
-evalBExp :: BExp -> State -> Bool
+evalBExp :: BExp -> State -> Bool -- Table 1.2
 evalBExp (Boolean b) _ = b
 evalBExp (ABExp Equal a0 a1) s = (evalAExp a0 s) == (evalAExp a1 s)
 evalBExp (ABExp Greater a0 a1) s = (evalAExp a0 s) > (evalAExp a1 s)
@@ -71,8 +71,8 @@ evalBExp (BExp And b0 b1) s = (evalBExp b0 s) && (evalBExp b1 s)
 
 -- Operators
 
-data AOp = Sum | Sub | Mul
+data AOp = Sum | Sub | Mul -- Table 1.1
 
-data BOp = And
+data BOp = And -- Table 1.2
 
-data ABOp = Equal | Greater
+data ABOp = Equal | Greater -- Table 1.2

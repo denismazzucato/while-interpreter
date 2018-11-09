@@ -15,7 +15,7 @@ data Stm =
   | While BExp Stm
 
 -- semantic function
-semFunction :: Stm -> State -> State
+semFunction :: Stm -> State -> State -- Table 4.1
 semFunction (Assignment x a) = updateState x a
 semFunction (Skip) = id
 semFunction (Composition s0 s1) = semFunction s1 . semFunction s0
