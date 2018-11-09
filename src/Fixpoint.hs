@@ -5,9 +5,7 @@ module Fixpoint
 import DataStructure
 
 fix :: ((State -> State) -> (State -> State)) -> State -> State
-fix f s = head [ app n | n <- [0..], app n /= Undef]
-  where
-    app = \n -> fnth f n bottom s
+fix f = lub [ fnth f n bottom | n <- [0..] ]
 
 -- nth application of functional F
 fnth ::
@@ -17,3 +15,9 @@ fnth ::
   State -> State
 fnth f 0 = id
 fnth f n = f . (fnth f (n-1))
+
+lub :: [(State -> State)] -> State -> State
+lub [] s = bottom s
+lub (g:gs) s
+  | g s /= Undef = g s
+  | otherwise = lub gs s
