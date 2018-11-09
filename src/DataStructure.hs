@@ -2,7 +2,6 @@ module DataStructure
   ( State(..),
     bottom,
     emptyState,
-    undefState,
     Var(..),
     updateState,
     lookupState,
@@ -30,9 +29,6 @@ bottom = \s -> Undef
 
 emptyState :: State
 emptyState = Valid Map.empty
-
-undefState ::  State
-undefState = Undef
 
 -- build state like:
 -- State (Map.fromList[('x', 2), ('y'), 3])
