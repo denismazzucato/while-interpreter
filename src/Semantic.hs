@@ -32,9 +32,12 @@ semFunction (Repeat s b) = fix f
 -- syntactic sugar
 semFunction (For a0 a1 s) =
   cond
-  (evalBExp $ ABExp Smaller a0 a1) -- condition
-  (semFunction $ Composition s (For a0 a1 s)) -- then
+  (evalSmaller a0 a1) -- condition
+  (semFunction $ Composition s (recCall a0 a1 s)) -- then
   (semFunction Skip) -- else
+    where
+      recCall a0 a1 s = For (AExp Sum a0 (Numeral 1)) a1 s
+      evalSmaller a0 a1 = evalBExp $ ABExp Smaller a0 a1
 
 cond ::
   (State -> Bool) -> -- b
