@@ -14,7 +14,7 @@ data Stm =
   | If BExp Stm Stm
   | While BExp Stm
   | Repeat Stm BExp
-  | For AExp AExp Stm
+  | For Var AExp AExp Stm
   deriving (Show)
 
 -- semantic function
@@ -30,14 +30,14 @@ semFunction (Repeat s b) = fix f
   where f = \g -> (cond (evalBExp b) id g) . (semFunction s)
 
 -- syntactic sugar
-semFunction (For a0 a1 s) =
-  cond
-  (evalSmaller a0 a1) -- condition
-  (semFunction $ Composition s (recCall a0 a1 s)) -- then
-  (semFunction Skip) -- else
+semFunction (For x a0 a1 s) =
+  semFunction $ Composition (Assignment x a0) (
+    If (smaller x a1) (Composition s (recCall x a0 a1 s)) Skip
+  )
     where
-      recCall a0 a1 s = For (AExp Sum a0 (Numeral 1)) a1 s
-      evalSmaller a0 a1 = evalBExp $ ABExp Smaller a0 a1
+      initCount x a0 = Assignment x a0
+      recCall x a0 a1 s = For x (AExp Sum a0 (Numeral 1)) a1 s
+      smaller x a1 = ABExp Smaller (Variable x) a1
 
 cond ::
   (State -> Bool) -> -- b
