@@ -80,14 +80,6 @@ statement :: Parser Stm'
 statement = braces statement
            <|> sequenceOfStm
 
--- sequenceOfStm =
---     do list <- (sepBy1 statment' semi)
---        return $ if length list == 1 then head list else composeSeq list
-
-
--- composeSeq (x1:x2:[]) = Composition x1 x2
--- composeSeq (x:xs) = Composition x $osition composeSeq xs
-
 sequenceOfStm =
     do list <- (sepBy1 statment' semi)
        -- If there's only one statement return it without using Seq.

@@ -6,9 +6,10 @@ module Lib
 
 import Semantic
 import DataStructure
+import Parse
 
-someFunc :: Stm -> IO ()
-someFunc = putStr . show . interpret
+someFunc :: String -> IO ()
+someFunc = putStr . show . interpret . parseString
 
 interpret :: Stm -> State
 interpret stm = semFunction stm emptyState
