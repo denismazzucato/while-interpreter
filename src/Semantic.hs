@@ -27,7 +27,7 @@ semFunction (While b s) = fix f
   where f = \g -> cond (evalBExp b) (g . semFunction(s)) id
 
 semFunction (Repeat s b) = fix f
-  where f = \g -> (cond (evalBExp b) id g) . (semFunction s)
+  where f = \g -> (cond (evalBExp b) id g) . (semFunction s) -- maybe not b
 
 -- syntactic sugar
 semFunction (For x a0 a1 s) =
