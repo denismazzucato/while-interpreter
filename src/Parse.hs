@@ -72,7 +72,6 @@ stm'2Stm (Repeat' s b) = Repeat (stm'2Stm s) b
 stm'2Stm (For' x a0 a1 s) = For x a0 a1 $ stm'2Stm s
 stm'2Stm (Seq x) = seq2Comp x
 
-seq2Comp [] = Skip -- ??
 seq2Comp (x:[]) = stm'2Stm x
 seq2Comp (x:xs) = Composition (stm'2Stm x) (seq2Comp xs)
 
