@@ -24,6 +24,19 @@ type MapWrapper = Map.Map Var Integer
 data State = Valid MapWrapper | Undef
   deriving (Show, Eq)
 
+-- data StateMap = Valid MapWrapper | Undef
+--   deriving (Show, Eq)
+
+-- class State a where
+--   s, lookup :: Var -> a -> Integer
+--   update :: Var -> AExp -> a -> a
+--   s = lookup
+
+-- instance State StateMap where
+--   lookup v (Valid s) = s Map.! v
+--   update v a (Valid s) = Valid (Map.insert x value s)
+--     where value = evalAExp a (Valid s)
+
 bottom :: State -> State
 bottom = \s -> Undef -- Lemma 4.13
 
