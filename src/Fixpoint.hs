@@ -3,7 +3,7 @@ module Fixpoint
   ) where
 
 import DataStructure
-import State
+import State.State
 
 fix :: ((State -> State) -> State -> State) -> State -> State
 fix f = lub [ fnth f n bottom | n <- [0..] ] -- Theorem 4.37

@@ -6,7 +6,7 @@ module Semantic
 
 import DataStructure
 import Fixpoint
-import State
+import State.Update
 import EvalBExp
 
 data Stm =
