@@ -6,6 +6,7 @@ module Lib
 
 import Semantic
 import DataStructure
+import State
 import Parse
 
 someFunc :: String -> IO ()

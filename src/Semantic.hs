@@ -6,6 +6,8 @@ module Semantic
 
 import DataStructure
 import Fixpoint
+import State
+import EvalBExp
 
 data Stm =
   Assignment Var AExp
