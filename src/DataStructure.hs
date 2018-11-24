@@ -25,25 +25,25 @@ data AExp = -- Table 1.1
   Numeral Integer
   | Variable Var
   | AExp AOp AExp AExp
-  deriving (Show)
+  deriving (Show, Eq)
 
 data BExp = -- Table 1.2
   Boolean Bool
   | ABExp ABOp AExp AExp -- Boolean Operator for Aritmetical expressions
   | Not BExp
   | BExp BOp BExp BExp -- Boolean Operator for Boolean expressions
-  deriving (Show)
+  deriving (Show, Eq)
 
 -- Operators
 
 data AOp = Sum | Sub | Mul -- Table 1.1
-  deriving (Show)
+  deriving (Show, Eq)
 
 data BOp = And | Or -- Table 1.2
-  deriving (Show)
+  deriving (Show, Eq)
 
 data ABOp = Equal | Greater | Smaller -- Table 1.2
-  deriving (Show)
+  deriving (Show, Eq)
 
 -- Statements
 
@@ -55,4 +55,4 @@ data Stm =
   | While BExp Stm
   | Repeat Stm BExp
   | For Var AExp AExp Stm
-  deriving (Show)
+  deriving (Show, Eq)

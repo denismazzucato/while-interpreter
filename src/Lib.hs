@@ -1,7 +1,7 @@
 module Lib
   (
-    someFunc,
-    interpret
+    interpret,
+    interpretParsed
   ) where
 
 import Semantic
@@ -9,8 +9,8 @@ import DataStructure
 import State.State
 import Parse
 
-someFunc :: String -> IO ()
-someFunc = putStr . show . interpret . parseString
+interpret :: String -> State
+interpret = interpretParsed . parseString
 
-interpret :: Stm -> State
-interpret stm = semFunction stm emptyState
+interpretParsed :: Stm -> State
+interpretParsed stm = semFunction stm emptyState
