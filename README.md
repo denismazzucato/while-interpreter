@@ -45,6 +45,6 @@ lub (g:gs) s
 Where `(g:gs)` is the (possible) infinite list of the n-th application of the functional F at bottom, for each n in N, Natural numbers.
 `(g:gs)` take values from a list comprehension that generate a possible infinite list, haskell compute elements on this list only when necessary, see [lazyness](https://wiki.haskell.org/Performance/Laziness).
 
-`lub` define two branches, in this case I take only the recursive branch, I use `lub' (g:gs) = lub' gs` instead of `lub` definition, this implies `lub'` is tail recursive iff `lub` is tail recursive.
+`lub` define two branches, in this case I take only the recursive branch, I use `lub' (g:gs) = lub' gs` instead of `lub` definition, this implies `lub'` is tail recursive iff `lub` is tail recursive, because `lub'` is the `lub` recursive branching.
 
 From the definition of tail recursive function, `lub'` is tail recursive iff `lub'` occurs tail recursively in his body, `lub'` occurs tail recursively in his body iff `lub'` occurs in his body (true) and holds that the body is in the form `t0 t1` and `lub'` occurs tail recursively in `t0`, since `t0` is `lub'`, and does not occur in `t1` (true).
