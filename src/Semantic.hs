@@ -1,23 +1,9 @@
-module Semantic
-  (
-    Stm(..),
-    semFunction
-  ) where
+module Semantic (semFunction) where
 
 import DataStructure
 import Fixpoint
 import State.Update
 import EvalBExp
-
-data Stm =
-  Assignment Var AExp
-  | Skip
-  | Composition Stm Stm
-  | If BExp Stm Stm
-  | While BExp Stm
-  | Repeat Stm BExp
-  | For Var AExp AExp Stm
-  deriving (Show)
 
 -- semantic function
 semFunction :: Stm -> State -> State -- Table 4.1
@@ -31,13 +17,13 @@ semFunction (While b s) = fix f
 semFunction (Repeat s b) = fix f
   where f = \g -> (cond (evalBExp b) id g) . (semFunction s) -- maybe not b
 
--- syntactic sugar
+-- syntactic sugar, can't be compositional definition
+-- can be done better
 semFunction (For x a0 a1 s) =
   semFunction $ Composition (Assignment x a0) (
     If (smaller x a1) (Composition s (recCall x a0 a1 s)) Skip
   )
     where
-      initCount x a0 = Assignment x a0
       recCall x a0 a1 s = For x (AExp Sum a0 (Numeral 1)) a1 s
       smaller x a1 = ABExp Smaller (Variable x) a1
 

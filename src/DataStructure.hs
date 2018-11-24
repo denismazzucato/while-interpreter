@@ -1,11 +1,12 @@
 module DataStructure
   ( State(..),
-    Var(..),
+    Var,
     AExp(..),
     BExp(..),
     AOp(..),
     BOp(..),
-    ABOp(..)
+    ABOp(..),
+    Stm(..)
   ) where
 
 import qualified Data.Map as Map
@@ -42,4 +43,16 @@ data BOp = And | Or -- Table 1.2
   deriving (Show)
 
 data ABOp = Equal | Greater | Smaller -- Table 1.2
+  deriving (Show)
+
+-- Statements
+
+data Stm =
+  Assignment Var AExp
+  | Skip
+  | Composition Stm Stm
+  | If BExp Stm Stm
+  | While BExp Stm
+  | Repeat Stm BExp
+  | For Var AExp AExp Stm
   deriving (Show)

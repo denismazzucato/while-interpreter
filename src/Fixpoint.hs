@@ -20,5 +20,5 @@ fnth f n = f . (fnth f (n-1))
 lub :: [(State -> State)] -> State -> State
 -- lub [] s = bottom s -- Fact 4.24
 lub (g:gs) s -- Lemma 4.25
-  | g s /= Undef = g s -- if exist g (and g s) is unique
+  | g s /= Undef = g s -- if exist g (and g s) is unique, also g is the least
   | otherwise = lub gs s
