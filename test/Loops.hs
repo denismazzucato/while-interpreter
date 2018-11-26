@@ -7,7 +7,7 @@ import qualified Data.Map as Map
 import Test.Tasty
 import Test.Tasty.HUnit
 
-tests = [whileFact, repeatFact, forFact]
+tests = [whileFact, repeatFact, repeatSS, forFact]
 
 whileFact = testCase "while factorial interpretation" (assertEqual "" expected result)
   where
@@ -20,6 +20,13 @@ repeatFact = testCase "repeat until factorial interpretation" (assertEqual "" ex
     expected = Valid (Map.fromList [("y", 120), ("x", 1)])
     result =
       interpret "x := 5; y := 1; repeat { y := y * x; x := x - 1 } until x == 1"
+
+repeatSSFact = testCase "repeat until factorial interpretation, Syntactic Sugar definition" (assertEqual "" expected result)
+  where
+    expected = Valid (Map.fromList [("y", 120), ("x", 1)])
+    result =
+      interpret "x := 5; y := 1; repeatSS { y := y * x; x := x - 1 } until x == 1"
+
 
 forFact = testCase "for factorial interpretation" (assertEqual "" expected result)
   where
