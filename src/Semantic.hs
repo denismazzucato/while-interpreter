@@ -15,12 +15,10 @@ semFunction (While b s) = fix f
   where f = \g -> cond (evalBExp b) (g . semFunction(s)) id
 
 semFunction (Repeat s b) = fix f
-  where f = \g -> (cond (evalBExp b) id g) . (semFunction s) -- maybe not b
-
--- syntactic sugar, can't be compositional definition
--- can be done better
-semFunction (For x a0 a1 s) =
-  semFunction $ Composition (Assignment x a0) (
+  where f = \g -> (cond (evalBExp b) id g) . (semFunction s)
+-- syntactic sugar
+semFunction (RepeatSS s b) = semFunction $ Composition s (While (Not b) s)
+semFunction (For x a0 a1 s) = semFunction $ Composition (Assignment x a0) (
     If (smaller x a1) (Composition s (recCall x a0 a1 s)) Skip
   )
     where

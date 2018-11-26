@@ -48,3 +48,12 @@ Where `(g:gs)` is the (possible) infinite list of the n-th application of the fu
 `lub` define two branches, in this case I take only the recursive branch, I use `lub' (g:gs) = lub' gs` instead of `lub` definition, this implies `lub'` is tail recursive iff `lub` is tail recursive, because `lub'` is the `lub` recursive branching.
 
 From the definition of tail recursive function, `lub'` is tail recursive iff `lub'` occurs tail recursively in his body, `lub'` occurs tail recursively in his body iff `lub'` occurs in his body (true) and holds that the body is in the form `t0 t1` and `lub'` occurs tail recursively in `t0`, since `t0` is `lub'`, and does not occur in `t1` (true).
+
+## Compositional Definition vs Syntactic Sugar
+
+Only the **While** statements basic set, group by syntactic categories:
+- **Arithmetic Expressions** (AExp): _numeral_ | _variable_ | _sum_ | _sub_ | _mul_;
+- **Booleans Expressions** (BExp): _boolean value_ | _equal_ | _smaller then_ | _not_ | _and_;
+- **Statements** (Stm): _assignement_ | _skip_ | _composition_ | _conditional_ | _while_;
+
+While all the other statements are written as syntactic sugar (for the _repeat_ loop have been written two version, with compositional definition and syntactic sugar).

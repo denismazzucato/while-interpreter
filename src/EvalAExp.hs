@@ -6,6 +6,7 @@ module EvalAExp
 import DataStructure
 import State.Lookup (lookupState)
 
+-- while
 evalAExp :: AExp -> State -> Integer -- Table 1.1
 evalAExp (Numeral n) _ = n
 evalAExp (Variable v) s = lookupState v s

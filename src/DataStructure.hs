@@ -21,13 +21,13 @@ data State = Valid MapWrapper | Undef
 
 -- Expressions (Aritmetical and Boolean)
 
-data AExp = -- Table 1.1
+data AExp =
   Numeral Integer
   | Variable Var
   | AExp AOp AExp AExp
   deriving (Show, Eq)
 
-data BExp = -- Table 1.2
+data BExp =
   Boolean Bool
   | ABExp ABOp AExp AExp -- Boolean Operator for Aritmetical expressions
   | Not BExp
@@ -36,13 +36,13 @@ data BExp = -- Table 1.2
 
 -- Operators
 
-data AOp = Sum | Sub | Mul -- Table 1.1
+data AOp = Sum | Sub | Mul
   deriving (Show, Eq)
 
-data BOp = And | Or -- Table 1.2
+data BOp = And | Or
   deriving (Show, Eq)
 
-data ABOp = Equal | Greater | Smaller -- Table 1.2
+data ABOp = Equal | GreaterThen | SmallerThen | Greater | Smaller
   deriving (Show, Eq)
 
 -- Statements
@@ -54,5 +54,6 @@ data Stm =
   | If BExp Stm Stm
   | While BExp Stm
   | Repeat Stm BExp
+  | RepeatSS Stm BExp -- Syntactic Sugar version
   | For Var AExp AExp Stm
   deriving (Show, Eq)
