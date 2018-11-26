@@ -7,7 +7,7 @@ import qualified Data.Map as Map
 import Test.Tasty
 import Test.Tasty.HUnit
 
-tests = [whileFact, repeatFact, repeatSS, forFact]
+tests = [whileFact, repeatFact, repeatSSFact, forFact]
 
 whileFact = testCase "while factorial interpretation" (assertEqual "" expected result)
   where

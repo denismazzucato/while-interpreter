@@ -18,6 +18,7 @@ data Stm' = Seq [Stm']
             | If' BExp Stm' Stm'
             | While' BExp Stm'
             | Repeat' Stm' BExp
+            | RepeatSS' Stm' BExp
             | For' Var AExp AExp Stm'
             | Skip'
             deriving (Show)
@@ -34,6 +35,7 @@ languageDef =
                                      , "while"
                                      , "do"
                                      , "repeat"
+                                     , "repeatSS" -- for syntactic sugar discrimination
                                      , "until"
                                      , "for"
                                      , "to"
@@ -45,7 +47,7 @@ languageDef =
                                      , "or"
                                      ]
              , Token.reservedOpNames = [ "+", "-", "*", ":="
-                                       , "<", ">", "==", "and", "or", "not"
+                                       , "<=", ">=", "<", ">", "==", "and", "or", "not"
                                        ]
              }
 
@@ -69,6 +71,7 @@ stm'2Stm (Assignment' x a) = Assignment x a
 stm'2Stm (If' c s0 s1) = If c (stm'2Stm s0) (stm'2Stm s1)
 stm'2Stm (While' b s) = While b $ stm'2Stm s
 stm'2Stm (Repeat' s b) = Repeat (stm'2Stm s) b
+stm'2Stm (RepeatSS' s b) = RepeatSS (stm'2Stm s) b
 stm'2Stm (For' x a0 a1 s) = For x a0 a1 $ stm'2Stm s
 stm'2Stm (Seq x) = seq2Comp x
 
@@ -89,6 +92,7 @@ statment' :: Parser Stm'
 statment' = ifStm
             <|> whileStm
             <|> repeatStm
+            <|> repeatSSStm
             <|> forStm
             <|> skipStm
             <|> assignStm
@@ -118,6 +122,14 @@ repeatStm =
        reserved "until"
        cond <- bExpression
        return $ Repeat' stm cond
+
+repeatSSStm :: Parser Stm'
+repeatSSStm =
+    do reserved "repeatSS"
+       stm <- statement
+       reserved "until"
+       cond <- bExpression
+       return $ RepeatSS' stm cond
 
 forStm :: Parser Stm'
 forStm =
@@ -175,6 +187,8 @@ rExpression =
 
 relation = (reservedOp ">" >> return Greater)
            <|> (reservedOp "<" >> return Smaller)
+           <|> (reservedOp ">=" >> return GreaterThen)
+           <|> (reservedOp "<=" >> return SmallerThen)
            <|> (reservedOp "==" >> return Equal)
 
 parseString :: String -> Stm
