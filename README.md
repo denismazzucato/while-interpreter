@@ -23,7 +23,7 @@ wget -qO- https://get.haskellstack.org/ | sh
 - **While**+ is **While** plus some syntactic sugar for arithmetic/Boolean expressions and statements and including for and repeat-until loops.
 - A program evaluated in this interpreter (in the initial *state* s0) respond as the same program applied to the denotational semantic function (in the same *state* s0). Thus, the semantic function is *undefined* iff the execution of the interpreter does not terminate, in the same program and initial *state*.
 - This Interpreter relies on *Kleene-Knaster-Tarski* fixpoint iteration sequence for evaluating the while statements.
-- To parse the input program I implemented the [wiki.haskell.org](https://wiki.haskell.org/Parsing_a_simple_imperative_language)'s tutorial.
+- To parse the input program I implemented the [wiki.haskell.org](https://wiki.haskell.org/Parsing_a_simple_imperative_language)'s tutorial, comply with the syntax defined in `DataStructure.hs`.
 
 ## How to avoid run-time error in non-termination
 
@@ -43,7 +43,7 @@ lub (g:gs) s
   | otherwise = lub gs s
 ```
 Where `(g:gs)` is the (possible) infinite list of the n-th application of the functional F at bottom, for each n in N, Natural numbers.
-`(g:gs)` take values from a list comprehension that generate a possible infinite list, haskell compute elements on this list only when necessary, see [lazyness](https://wiki.haskell.org/Performance/Laziness).
+`(g:gs)` take values from a list comprehension that generate a possible infinite list, haskell compute elements on this list only when necessary, see [lazyness](https://wiki.haskell.org/Performance/Laziness) and Call-by-Name policy.
 
 `lub` define two branches, in this case I take only the recursive branch, I use `lub' (g:gs) = lub' gs` instead of `lub` definition, this implies `lub'` is tail recursive iff `lub` is tail recursive, because `lub'` is the `lub` recursive branching.
 
@@ -51,7 +51,7 @@ From the definition of tail recursive function, `lub'` is tail recursive iff `lu
 
 ## Compositional Definition vs Syntactic Sugar
 
-Only the **While** statements basic set, group by syntactic categories:
+Only the **While** statements basic set are written with compositional definition, this basic set is described below, group by syntactic categories:
 - **Arithmetic Expressions** (AExp): _numeral_ | _variable_ | _sum_ | _sub_ | _mul_;
 - **Booleans Expressions** (BExp): _boolean value_ | _equal_ | _smaller then_ | _not_ | _and_;
 - **Statements** (Stm): _assignment_ | _skip_ | _composition_ | _conditional_ | _while_;

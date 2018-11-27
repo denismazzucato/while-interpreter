@@ -1,7 +1,4 @@
-module State.State (
-  bottom,
-  emptyState
-  ) where
+module State.State (bottom, emptyState) where
 
 import DataStructure
 import qualified Data.Map as Map

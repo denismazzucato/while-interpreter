@@ -1,6 +1,4 @@
-module State.Lookup (
-  lookupState
-  ) where
+module State.Lookup (lookupState) where
 
 import DataStructure
 import qualified Data.Map as Map

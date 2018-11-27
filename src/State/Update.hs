@@ -1,6 +1,4 @@
-module State.Update (
-  updateState
-  ) where
+module State.Update (updateState) where
 
 import DataStructure
 import EvalAExp (evalAExp)
