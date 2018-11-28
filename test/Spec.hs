@@ -31,10 +31,10 @@ main = do
 
 -- testWhileFact :: TestTree
 -- testWhileFact = testCase "while factorial 5!"
---   (assertEqual "assert label" (Valid (Map.fromList [("x", 1), ("y", 120)])) (interpret factParsedProgram))
+--   (assertEqual "assert label" (Def (Map.fromList [("x", 1), ("y", 120)])) (interpret factParsedProgram))
 
 -- testForLoop :: TestTree
 -- testForLoop = testCase "for loop" (assertEqual "label" a b)
 --   where
---     a = Valid (Map.fromList [("i", 5), ("x", 6)])
+--     a = Def (Map.fromList [("i", 5), ("x", 6)])
 --     b = interpret forLoopParsedProgram

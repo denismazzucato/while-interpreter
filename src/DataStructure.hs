@@ -1,5 +1,6 @@
 module DataStructure
-  ( State(..),
+  ( State,
+    PartialState(..),
     Var,
     AExp(..),
     BExp(..),
@@ -14,9 +15,9 @@ import qualified Data.Map as Map
 -- State
 
 type Var = String
-type MapWrapper = Map.Map Var Integer
+type State = Map.Map Var Integer
 
-data State = Valid MapWrapper | Undef
+data PartialState = Def State | Undef
   deriving (Show, Eq)
 
 -- Expressions (Aritmetical and Boolean)
