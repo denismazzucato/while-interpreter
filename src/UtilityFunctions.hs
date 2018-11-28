@@ -16,5 +16,5 @@ comp ::
   (State -> Partial State) -> -- s1
   (State -> Partial State) -> -- s0
   State -> Partial State
-comp s1 s0 = s1 . destructState . s0
-  where destructState (Def s') = s'
+comp s1 s0 s = extract $ fmap s1 (s0 s)
+  where extract (Def s') = s'

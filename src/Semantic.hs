@@ -8,14 +8,14 @@ import EvalBExp
 
 -- semantic function
 semFunction :: Stm -> State -> Partial State -- Table 4.1
-semFunction (Assignment x a) = Def . (updateState x a)
-semFunction (Skip) = Def -- like identity function
+semFunction (Assignment x a) = pure . (updateState x a)
+semFunction (Skip) = pure -- like identity function
 semFunction (Composition s0 s1) = comp (semFunction s1) (semFunction s0)
 semFunction (If b s0 s1) = cond (evalBExp b, semFunction s0, semFunction s1)
 semFunction (While b s) = fix f
-  where f = \g -> cond (evalBExp b, comp g (semFunction s), Def)
+  where f = \g -> cond (evalBExp b, comp g (semFunction s), pure)
 semFunction (Repeat s b) = fix f
-  where f = \g -> comp (cond (evalBExp b, Def, g)) (semFunction s)
+  where f = \g -> comp (cond (evalBExp b, pure, g)) (semFunction s)
 
 -- syntactic sugar
 semFunction (RepeatSS s b) = semFunction $ Composition s (While (Not b) s)

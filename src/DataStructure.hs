@@ -20,6 +20,13 @@ type State = Map.Map Var Integer
 data Partial a = Def a | Undef
   deriving (Show, Eq)
 
+instance Functor Partial where
+  fmap g (Def s) = Def (g s)
+
+instance Applicative Partial where
+  pure = Def
+  (Def g) <*> mx = fmap g mx
+
 -- Expressions (Aritmetical and Boolean)
 
 data AExp =
