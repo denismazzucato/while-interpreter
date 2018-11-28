@@ -9,7 +9,7 @@ import EvalBExp
 -- semantic function
 semFunction :: Stm -> State -> PartialState -- Table 4.1
 semFunction (Assignment x a) = Def . (updateState x a)
-semFunction (Skip) = Def -- . id
+semFunction (Skip) = Def -- like identity function
 semFunction (Composition s0 s1) = comp (semFunction s1) (semFunction s0)
 semFunction (If b s0 s1) = cond (evalBExp b, semFunction s0, semFunction s1)
 semFunction (While b s) = fix f
