@@ -7,7 +7,7 @@ import State.Update
 import EvalBExp
 
 -- semantic function
-semFunction :: Stm -> State -> PartialState -- Table 4.1
+semFunction :: Stm -> State -> Partial State -- Table 4.1
 semFunction (Assignment x a) = Def . (updateState x a)
 semFunction (Skip) = Def -- like identity function
 semFunction (Composition s0 s1) = comp (semFunction s1) (semFunction s0)
@@ -19,9 +19,8 @@ semFunction (Repeat s b) = fix f
 
 -- syntactic sugar
 semFunction (RepeatSS s b) = semFunction $ Composition s (While (Not b) s)
-semFunction (For x a0 a1 s) = semFunction $ Composition (Assignment x a0) (
-    If (smaller x a1) (Composition s (recCall x a0 a1 s)) Skip
-  )
+semFunction (For x a0 a1 s) = semFunction $ Composition (Assignment x a0)
+  $ If (smaller x a1) (Composition s (recCall x a0 a1 s)) Skip
     where
-      recCall x a0 a1 s = For x (AExp Sum a0 (Numeral 1)) a1 s
+      recCall x a0 a1 = For x (AExp Sum a0 (Numeral 1)) a1
       smaller x a1 = ABExp Smaller (Variable x) a1

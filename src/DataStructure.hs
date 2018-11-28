@@ -1,6 +1,6 @@
 module DataStructure
   ( State,
-    PartialState(..),
+    Partial(..),
     Var,
     AExp(..),
     BExp(..),
@@ -17,7 +17,7 @@ import qualified Data.Map as Map
 type Var = String
 type State = Map.Map Var Integer
 
-data PartialState = Def State | Undef
+data Partial a = Def a | Undef
   deriving (Show, Eq)
 
 -- Expressions (Aritmetical and Boolean)
