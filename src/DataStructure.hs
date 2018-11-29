@@ -11,12 +11,11 @@ module DataStructure
   ) where
 
 import qualified Data.Map as Map
-import IntWrapper
 
 -- State
 
 type Var = String
-type StateRep = [(Var, IntWrapper)] -- State representation
+type StateRep = [(Var, Int)] -- State representation
 data State = State StateRep | Undef deriving (Show, Read, Eq)
 -- Undef only for definition of bottom
 
