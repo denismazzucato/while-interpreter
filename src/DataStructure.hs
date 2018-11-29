@@ -23,7 +23,7 @@ data State = State StateRep | Undef deriving (Show, Read, Eq)
 -- Expressions (Aritmetical and Boolean)
 
 data AExp =
-  Numeral Integer
+  Numeral Int
   | Variable Var
   | AExp AOp AExp AExp
   deriving (Show, Eq)

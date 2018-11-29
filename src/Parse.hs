@@ -172,7 +172,7 @@ bOperators = [ [Prefix (reservedOp "not" >> return (Not  )) ]
 
 aTerm = parens aExpression
         <|> liftM Variable identifier
-        <|> liftM Numeral integer
+        <|> liftM (Numeral . fromInteger) integer
 
 bTerm = parens bExpression
         <|> (reserved "true" >> return (Boolean True))

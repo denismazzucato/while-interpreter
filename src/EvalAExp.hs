@@ -8,7 +8,7 @@ import IntWrapper
 import State.Lookup (lookupState)
 
 -- while
-evalAExp :: AExp -> State -> Integer -- Table 1.1
+evalAExp :: AExp -> State -> Int -- Table 1.1
 evalAExp (Numeral n) = const n
 evalAExp (Variable v) = intWrapper2Int . lookupState v
 evalAExp (AExp Sum a0 a1) = \s -> (evalAExp a0 s) + (evalAExp a1 s)

@@ -14,7 +14,7 @@ fix f = lub [ fnth f n bottom | n <- [0..] ] -- Theorem 4.37
 -- nth application of functional F
 fnth :: -- definition of f^n, Theorem 4.37
   ((State -> State) -> (State -> State)) -> -- f
-  Integer -> -- n
+  Int -> -- n
   (State -> State) ->
   State -> State
 fnth f 0 = id
