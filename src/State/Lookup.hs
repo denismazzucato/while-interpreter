@@ -1,8 +1,9 @@
 module State.Lookup (lookupState) where
 
 import DataStructure
+import IntWrapper
 import State.State
 import qualified Data.Map as Map
 
-lookupState :: Var -> State -> Integer -- lookupState is total function
-lookupState v s = Map.findWithDefault unknownValue v s
+lookupState :: Var -> State -> IntWrapper -- lookupState is total function
+lookupState v s = Map.findWithDefault Unknown v s

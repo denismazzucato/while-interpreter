@@ -11,11 +11,12 @@ module DataStructure
   ) where
 
 import qualified Data.Map as Map
+import IntWrapper
 
 -- State
 
 type Var = String
-type State = Map.Map Var Integer
+type State = Map.Map Var IntWrapper
 
 data Partial a = Def a | Undef
   deriving (Show, Eq)
