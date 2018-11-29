@@ -5,6 +5,7 @@ import Semantic
 import DataStructure
 
 main :: IO ()
-main = (putStr . show . interpret) program
+main = putStr $ show $ interpret program initialState
 
-program = "x := 5; y := 1; while not x == 1 do { y := y * x; x := x - 1 }"
+program = "while not x == 1 do { y := y * x; x := x - 1 }"
+initialState = "State [(\"x\", I 5), (\"y\", I 1)]"

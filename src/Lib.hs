@@ -9,8 +9,8 @@ import DataStructure
 import State.State
 import Parse
 
-interpret :: String -> Partial State
+interpret :: String -> String -> State
 interpret = interpretParsed . parseString
 
-interpretParsed :: Stm -> Partial State
-interpretParsed stm = semFunction stm emptyState
+interpretParsed :: Stm -> String -> State
+interpretParsed stm = semFunction stm . read
