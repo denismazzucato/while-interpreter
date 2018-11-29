@@ -2,7 +2,7 @@ module IntWrapper (IntWrapper(..), intWrapper2Int, int2IntWrapper) where
 
 -- a number can be unknown
 data IntWrapper = I Integer | Unknown
-  deriving (Show, Eq)
+  deriving (Show, Read, Eq)
 
 int2IntWrapper :: Integer -> IntWrapper
 int2IntWrapper n = I n

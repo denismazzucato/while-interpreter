@@ -7,15 +7,15 @@ import State.Update
 import EvalBExp
 
 -- semantic function
-semFunction :: Stm -> State -> Partial State -- Table 4.1
-semFunction (Assignment x a) = pure . (updateState x a)
-semFunction (Skip) = pure -- like identity function
-semFunction (Composition s0 s1) = comp (semFunction s1) (semFunction s0)
+semFunction :: Stm -> State -> State -- Table 4.1
+semFunction (Assignment x a) = updateState x a
+semFunction (Skip) = id
+semFunction (Composition s0 s1) = semFunction s1 . semFunction s0
 semFunction (If b s0 s1) = cond (evalBExp b, semFunction s0, semFunction s1)
 semFunction (While b s) = fix f
-  where f = \g -> cond (evalBExp b, comp g (semFunction s), pure)
+  where f = \g -> cond (evalBExp b, g .semFunction s, id)
 semFunction (Repeat s b) = fix f
-  where f = \g -> comp (cond (evalBExp b, pure, g)) (semFunction s)
+  where f = \g -> cond (evalBExp b, id, g) . semFunction s
 
 -- syntactic sugar
 semFunction (RepeatSS s b) = semFunction $ Composition s (While (Not b) s)

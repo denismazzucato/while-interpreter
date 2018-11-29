@@ -6,4 +6,4 @@ import State.State
 import qualified Data.Map as Map
 
 lookupState :: Var -> State -> IntWrapper -- lookupState is total function
-lookupState v s = Map.findWithDefault Unknown v s
+lookupState v (State s) = Map.findWithDefault Unknown v s

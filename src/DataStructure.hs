@@ -1,6 +1,5 @@
 module DataStructure
-  ( State,
-    Partial(..),
+  ( State(..),
     Var,
     AExp(..),
     BExp(..),
@@ -16,17 +15,9 @@ import IntWrapper
 -- State
 
 type Var = String
-type State = Map.Map Var IntWrapper
-
-data Partial a = Def a | Undef
-  deriving (Show, Eq)
-
-instance Functor Partial where
-  fmap g (Def s) = Def (g s)
-
-instance Applicative Partial where
-  pure = Def
-  (Def g) <*> mx = fmap g mx
+type StateMap = Map.Map Var IntWrapper
+data State = State StateMap | Undef deriving (Show, Read, Eq)
+-- Undef only for definition of bottom
 
 -- Expressions (Aritmetical and Boolean)
 
