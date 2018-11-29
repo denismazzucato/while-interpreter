@@ -9,4 +9,4 @@ bottom = \s -> Undef -- Lemma 4.13
 -- is used in place that required function State to State
 
 emptyState :: State
-emptyState = State Map.empty
+emptyState = State []

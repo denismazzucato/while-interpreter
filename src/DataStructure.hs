@@ -1,5 +1,6 @@
 module DataStructure
   ( State(..),
+    StateRep,
     Var,
     AExp(..),
     BExp(..),
@@ -15,8 +16,8 @@ import IntWrapper
 -- State
 
 type Var = String
-type StateMap = Map.Map Var IntWrapper
-data State = State StateMap | Undef deriving (Show, Read, Eq)
+type StateRep = [(Var, IntWrapper)] -- State representation
+data State = State StateRep | Undef deriving (Show, Read, Eq)
 -- Undef only for definition of bottom
 
 -- Expressions (Aritmetical and Boolean)
