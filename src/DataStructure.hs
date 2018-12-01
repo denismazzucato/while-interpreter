@@ -1,6 +1,7 @@
 module DataStructure
   ( State(..),
-    StateRep,
+    Partial(..),
+    extract,
     Var,
     AExp(..),
     BExp(..),
@@ -15,9 +16,13 @@ import qualified Data.Map as Map
 -- State
 
 type Var = String
-type StateRep = [(Var, Int)] -- State representation
-data State = State StateRep | Undef deriving (Show, Read, Eq)
+data State = State [(Var, Int)] deriving (Show, Read, Eq)
 -- Undef only for definition of bottom
+
+data Partial a = Def a | Undef deriving (Show, Eq)
+
+extract :: Partial State -> State
+extract (Def a) = a
 
 -- Expressions (Aritmetical and Boolean)
 
